@@ -23,20 +23,25 @@ android {
 }
 
 dependencies {
-    def lifecycle_version = "2.0.0"
-    def room_version = "2.1.0-alpha04"
     def design_version = '1.0.0-beta01'
+    def lifecycle_version = "2.0.0"
+    def nav_version = "2.0.0-rc02"
+    def room_version = "2.1.0-alpha04"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
-    //room
+    // room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
 
-    //design & cardview
+    // design & cardview
     implementation "com.google.android.material:material:$design_version"
     implementation "androidx.cardview:cardview:$design_version"
+
+    // navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
