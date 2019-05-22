@@ -8,5 +8,14 @@
             android:id="@+id/notesFragment"
             android:name="com.tjrushby.notelin.ui.notes.NotesFragment"
             android:label="NotesFragment"
-            tools:layout="@layout/fragment_notes"/>
+            tools:layout="@layout/fragment_notes">
+        <action
+                android:id="@+id/action_addEditNotes"
+                app:destination="@id/addEditNoteFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/addEditNoteFragment"
+            android:name="com.tjrushby.notelin.ui.addeditnote.AddEditNoteFragment"
+            android:label="AddEditNoteFragment"
+            tools:layout="@layout/fragment_add_edit_note"/>
 </navigation>
