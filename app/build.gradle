@@ -25,20 +25,33 @@ android {
     dataBinding {
         enabled = true
     }
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
 }
 
 dependencies {
     def design_version = '1.0.0-beta01'
     def lifecycle_version = "2.0.0"
     def nav_version = "2.0.0-rc02"
-    def room_version = "2.1.0-alpha04"
+    def room_version = "2.1.0-alpha07"
+
+    // Koin for the dependencies injections
+    implementation 'org.koin:koin-android-viewmodel:2.0.0-rc-2'
+
+    // Coroutines for asynchronous calls (and Deferred’s adapter)
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
     // room
     implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
 
     // design & cardview
     implementation "com.google.android.material:material:$design_version"
