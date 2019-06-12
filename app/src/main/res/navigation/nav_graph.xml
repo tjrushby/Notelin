@@ -15,7 +15,7 @@
     </fragment>
     <fragment
             android:id="@+id/addEditNoteFragment"
-            android:name="com.tjrushby.notelin.ui.addeditnote.AddEditNoteFragment"
+            android:name="com.tjrushby.notelin.ui.addedit.AddEditFragment"
             android:label="AddEditNoteFragment"
-            tools:layout="@layout/fragment_add_edit_note"/>
+            tools:layout="@layout/fragment_add_edit"/>
 </navigation>

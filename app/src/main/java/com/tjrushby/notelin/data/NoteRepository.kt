@@ -1,10 +1,12 @@
 package com.tjrushby.notelin.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import timber.log.Timber
 
 
 interface NoteRepository {
@@ -21,10 +23,8 @@ interface NoteRepository {
 
 class NoteRepositoryImpl(private val noteDao : NoteDao) : NoteRepository{
 
-    private val notesList: LiveData<List<Note>> = noteDao.getAllNotes()
-
     override fun getAllNotes(): LiveData<List<Note>> {
-        return notesList
+        return liveData { emitSource(noteDao.getAllNotes()) }
     }
 
     override fun saveNote(note: Note) = runBlocking {

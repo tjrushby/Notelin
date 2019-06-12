@@ -32,36 +32,37 @@ android {
 
 dependencies {
     def design_version = '1.0.0-beta01'
-    def lifecycle_version = "2.0.0"
+    def lifecycle_version = "2.2.0-alpha01"
     def nav_version = "2.0.0-rc02"
-    def room_version = "2.1.0-alpha07"
+    def room_version = "2.1.0-rc01"
 
     // Koin for the dependencies injections
     implementation 'org.koin:koin-android-viewmodel:2.0.0-rc-2'
 
-    // Coroutines for asynchronous calls (and Deferred’s adapter)
+    // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.0'
-    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
     // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
-    // room
+    // Room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
 
-
-    // design & cardview
+    // Design & CardView
     implementation "com.google.android.material:material:$design_version"
     implementation "androidx.cardview:cardview:$design_version"
 
-    // navigation
+    // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    // timber
+    // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

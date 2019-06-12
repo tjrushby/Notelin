@@ -12,19 +12,16 @@ import com.tjrushby.notelin.R
 import com.tjrushby.notelin.databinding.FragmentNotesBinding
 import kotlinx.android.synthetic.main.fragment_notes.*
 import kotlinx.android.synthetic.main.fragment_notes.view.*
-import org.koin.android.viewmodel.ext.android.viewModel
-
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class NotesFragment : Fragment() {
 
-    private val viewModel: NotesViewModel by viewModel()
-    private lateinit var noteAdapter: NoteAdapter
+    private val viewModel by sharedViewModel<NotesViewModel>()
+    private val noteAdapter = NoteAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var binding: FragmentNotesBinding =
+        val binding: FragmentNotesBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_notes, container, false)
-
-        noteAdapter = NoteAdapter()
 
         binding.root.rvNotes.apply {
             adapter = noteAdapter
@@ -46,7 +43,7 @@ class NotesFragment : Fragment() {
     private fun initViewModel() {
         // set data for adapter
         viewModel.notesList.observe(this, Observer { newNotesList ->
-            noteAdapter.updateData(newNotesList)
+            noteAdapter.updateData(newNotesList!!)
         })
     }
 }

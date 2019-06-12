@@ -19,8 +19,8 @@ val appModules = module {
         ).build()
     }
 
-    factory { get<NoteDatabase>().noteDao() }
-    factory<NoteRepository> { NoteRepositoryImpl(noteDao = get()) }
+    single<NoteRepository> { NoteRepositoryImpl(get()) }
+    single { get<NoteDatabase>().noteDao() }
 
-    viewModel { NotesViewModel(repo = get()) }
+    viewModel { NotesViewModel(get()) }
 }

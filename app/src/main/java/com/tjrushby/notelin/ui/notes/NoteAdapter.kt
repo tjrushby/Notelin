@@ -7,11 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tjrushby.notelin.R
 import com.tjrushby.notelin.data.Note
 import com.tjrushby.notelin.databinding.ItemNoteBinding
-import kotlin.properties.Delegates
 
 
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
-    private var notesList: List<Note> by Delegates.observable(emptyList()) { _, _, _ -> notifyDataSetChanged() }
+    private var notesList: List<Note> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val binding: ItemNoteBinding =
@@ -31,12 +30,14 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     fun updateData(newNotesList: List<Note>) {
         notesList = newNotesList
+        notifyDataSetChanged()
     }
 
     class NoteViewHolder(binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
+        var binding = binding
+
         fun bind(note: Note) {
-            // todo onClickListener here, fun bind() can also take a listener as an argument
+            binding.note = note
         }
     }
-
 }
