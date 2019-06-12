@@ -9,7 +9,8 @@ import com.tjrushby.notelin.data.Note
 import com.tjrushby.notelin.databinding.ItemNoteBinding
 
 
-class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+class NoteAdapter(private var noteClickCallback: NoteClickCallback) :
+    RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     private var notesList: List<Note> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -33,11 +34,21 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class NoteViewHolder(binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
-        var binding = binding
+    inner class NoteViewHolder(private var binding: ItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    noteClickCallback.onClick(adapterPosition)
+                }
+            }
+        }
 
         fun bind(note: Note) {
             binding.note = note
         }
+    }
+
+    interface NoteClickCallback {
+        fun onClick(listPosition: Int)
     }
 }

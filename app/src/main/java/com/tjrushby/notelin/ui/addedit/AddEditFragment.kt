@@ -5,16 +5,16 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.tjrushby.notelin.R
 import com.tjrushby.notelin.databinding.FragmentAddEditBinding
-import com.tjrushby.notelin.ui.notes.NotesViewModel
+import com.tjrushby.notelin.ui.NotesViewModel
 import kotlinx.android.synthetic.main.fragment_add_edit.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddEditFragment : Fragment() {
 
+    private lateinit var binding: FragmentAddEditBinding
     private val viewModel by sharedViewModel<NotesViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +23,7 @@ class AddEditFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: FragmentAddEditBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_add_edit, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_edit, container, false)
 
         initViewModel()
 
@@ -39,7 +38,7 @@ class AddEditFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_save -> {
-                viewModel.saveNote(etTitle.text.toString(), etDescription.text.toString())
+                viewModel.saveNote(binding.note, etTitle.text.toString(), etDescription.text.toString())
                 return true
             }
         }
@@ -48,6 +47,10 @@ class AddEditFragment : Fragment() {
     }
 
     private fun initViewModel() {
+        viewModel.selectedNote.observe(this, Observer { selectedNote ->
+            binding.note = selectedNote
+        })
+
         viewModel.saved.observe(this, Observer { saved  ->
             when (saved) {
                 true -> findNavController().popBackStack()
